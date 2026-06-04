@@ -20,7 +20,6 @@ from app.config import (
     PREDICTION_CACHE_FILE,
     PREDICTION_METADATA_FILE,
     REGRESSOR_PARAMS,
-    TODAY,
     TOP_10_WEIGHT,
     TOP_20_WEIGHT,
     TRANSPORT_VISITORS_FILE,
@@ -28,6 +27,7 @@ from app.config import (
     WEATHER_HISTORY_DIR,
     EVENTS_FILE,
     WEATHER_STRATEGY_VERSION,
+    current_seoul_date,
 )
 from app.domain.commentary import (
     build_date_comment,
@@ -130,6 +130,7 @@ class PortablePredictionRuntime:
         self.event_service = EventSeasonService.from_csv(EVENTS_FILE)
         self.known_data_end: date | None = None
         self.prediction_frame: pd.DataFrame | None = None
+        self.cache_date: date | None = None
 
     def initialize(self) -> None:
         if self.state.initialized:
@@ -150,7 +151,7 @@ class PortablePredictionRuntime:
             "initialized": self.state.initialized,
             "source": self.state.source,
             "error": self.state.error,
-            "today": TODAY.isoformat(),
+            "today": current_seoul_date().isoformat(),
             "knownDataEnd": self.known_data_end.isoformat() if self.known_data_end else None,
             "predictionRangeEnd": self.max_supported_date.isoformat() if self.state.initialized else None,
             "modelFeatureVersion": MODEL_FEATURE_VERSION,
@@ -158,38 +159,42 @@ class PortablePredictionRuntime:
 
     @property
     def min_supported_date(self) -> date:
-        return TODAY
+        return current_seoul_date()
 
     @property
     def max_supported_date(self) -> date:
         if self.prediction_frame is not None and not self.prediction_frame.empty:
             return self.prediction_frame["date"].max().date()
-        return TODAY + timedelta(days=FORECAST_HORIZON_DAYS)
+        return current_seoul_date() + timedelta(days=FORECAST_HORIZON_DAYS)
 
     def _load_prediction_cache(self) -> bool:
         if not PREDICTION_CACHE_FILE.exists() or not PREDICTION_METADATA_FILE.exists():
             return False
         metadata = json.loads(PREDICTION_METADATA_FILE.read_text(encoding="utf-8"))
+        if metadata.get("today") != current_seoul_date().isoformat():
+            return False
         if metadata.get("weather_strategy_version") != WEATHER_STRATEGY_VERSION:
             return False
         if metadata.get("model_feature_version") != MODEL_FEATURE_VERSION:
             return False
         prediction_frame = pd.read_csv(PREDICTION_CACHE_FILE, parse_dates=["date"])
-        if prediction_frame.empty or prediction_frame["date"].max().date() < TODAY:
+        if prediction_frame.empty or prediction_frame["date"].max().date() < current_seoul_date():
             return False
         prediction_frame["congestion_level"] = prediction_frame["predicted_visitors"].map(congestion_level_from_visitors)
         self.known_data_end = pd.to_datetime(metadata["known_data_end"]).date()
+        self.cache_date = pd.to_datetime(metadata["today"]).date()
         self.prediction_frame = prediction_frame
         return True
 
     def _save_prediction_cache(self) -> None:
         assert self.prediction_frame is not None
+        assert self.known_data_end is not None
         ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
         self.prediction_frame.to_csv(PREDICTION_CACHE_FILE, index=False, encoding="utf-8-sig")
         PREDICTION_METADATA_FILE.write_text(
             json.dumps(
                 {
-                    "today": TODAY.isoformat(),
+                    "today": current_seoul_date().isoformat(),
                     "known_data_end": self.known_data_end.isoformat(),
                     "horizon_days": FORECAST_HORIZON_DAYS,
                     "weather_strategy_version": WEATHER_STRATEGY_VERSION,
@@ -562,11 +567,15 @@ class PortablePredictionRuntime:
         }
 
     def ensure_ready(self) -> None:
-        if not self.state.initialized:
-            self.initialize()
+        if self.state.initialized and self.cache_date == current_seoul_date():
+            return
+        self.state = RuntimeState()
+        self.prediction_frame = None
+        self.initialize()
 
     def is_selectable(self, target_date: date) -> tuple[bool, str | None]:
-        if target_date < TODAY:
+        today = current_seoul_date()
+        if target_date < today:
             return False, "오늘 이전 날짜는 선택할 수 없습니다."
         if self.known_data_end and target_date <= self.known_data_end:
             return False, "학습/평가 데이터에 포함된 날짜는 예측할 수 없습니다."

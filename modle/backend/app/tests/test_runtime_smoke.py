@@ -1,8 +1,11 @@
+from datetime import timedelta
+
 import pandas as pd
 
 from app.config import MODEL_FEATURE_VERSION, TODAY
 from app.services.model_runtime import (
     FEATURE_COLUMNS,
+    RuntimeState,
     TRANSPORT_TRAINING_FEATURE_COLUMNS,
     PortablePredictionRuntime,
 )
@@ -13,7 +16,7 @@ def test_prediction_cache_reuses_recent_cache_when_today_is_covered(tmp_path, mo
     metadata_file = tmp_path / "portable_predictions_metadata.json"
     cache_file.write_text(f"date,predicted_visitors\n{TODAY.isoformat()},1000\n", encoding="utf-8")
     metadata_file.write_text(
-        '{"today":"2000-01-01","known_data_end":"2025-07-31","horizon_days":365,'
+        f'{{"today":"{TODAY.isoformat()}","known_data_end":"2025-07-31","horizon_days":365,'
         f'"weather_strategy_version":"short-mid-v1","model_feature_version":"{MODEL_FEATURE_VERSION}"}}',
         encoding="utf-8",
     )
@@ -23,6 +26,24 @@ def test_prediction_cache_reuses_recent_cache_when_today_is_covered(tmp_path, mo
     runtime = PortablePredictionRuntime()
 
     assert runtime._load_prediction_cache() is True
+
+
+def test_prediction_cache_rejects_cache_generated_on_previous_day(tmp_path, monkeypatch) -> None:
+    cache_file = tmp_path / "portable_predictions.csv"
+    metadata_file = tmp_path / "portable_predictions_metadata.json"
+    stale_today = TODAY - timedelta(days=1)
+    cache_file.write_text(f"date,predicted_visitors\n{TODAY.isoformat()},1000\n", encoding="utf-8")
+    metadata_file.write_text(
+        f'{{"today":"{stale_today.isoformat()}","known_data_end":"2025-07-31","horizon_days":365,'
+        f'"weather_strategy_version":"short-mid-v1","model_feature_version":"{MODEL_FEATURE_VERSION}"}}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("app.services.model_runtime.PREDICTION_CACHE_FILE", cache_file)
+    monkeypatch.setattr("app.services.model_runtime.PREDICTION_METADATA_FILE", metadata_file)
+
+    runtime = PortablePredictionRuntime()
+
+    assert runtime._load_prediction_cache() is False
 
 
 def test_prediction_cache_rejects_cache_that_ends_before_today(tmp_path, monkeypatch) -> None:
@@ -40,6 +61,25 @@ def test_prediction_cache_rejects_cache_that_ends_before_today(tmp_path, monkeyp
     runtime = PortablePredictionRuntime()
 
     assert runtime._load_prediction_cache() is False
+
+
+def test_runtime_reinitializes_when_cached_day_changes(monkeypatch) -> None:
+    runtime = PortablePredictionRuntime()
+    runtime.state = RuntimeState(initialized=True, source="disk-cache")
+    runtime.cache_date = TODAY - timedelta(days=1)
+    runtime.prediction_frame = pd.DataFrame()
+    initialize_calls = []
+
+    def fake_initialize() -> None:
+        initialize_calls.append("called")
+        runtime.state = RuntimeState(initialized=True, source="disk-cache")
+        runtime.cache_date = TODAY
+
+    monkeypatch.setattr(runtime, "initialize", fake_initialize)
+
+    runtime.ensure_ready()
+
+    assert initialize_calls == ["called"]
 
 
 def test_runtime_can_predict_today_forward() -> None:

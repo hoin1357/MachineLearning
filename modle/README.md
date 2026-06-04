@@ -30,7 +30,7 @@ docker run --rm -p 8765:8765 seoul-grand-park-forecast
 - `APP_PORT`: 로컬 실행 포트. 기본값은 `8765`입니다.
 - `APP_HOST`: 기본값은 `0.0.0.0`입니다.
 - `OPEN_BROWSER`: 클라우드에서는 `0`으로 둡니다.
-- `WEATHER_API_SERVICE_KEY`: 선택값입니다. 없으면 날씨 API 호출 없이 과거 기후 평균값으로 예측합니다.
+- `WEATHER_API_SERVICE_KEY`: 선택값입니다. 코드에 기본 공공데이터 API 키가 들어 있으며, 다른 키로 바꾸고 싶을 때만 설정합니다.
 
 ## 포함된 주요 파일
 
@@ -43,7 +43,7 @@ docker run --rm -p 8765:8765 seoul-grand-park-forecast
 
 ## 새 예측 캐시 생성
 
-데이터나 모델 설정을 바꾼 뒤에는 다음을 실행합니다.
+서버는 예측 캐시 생성일이 오늘이 아니면 시작 시 자동으로 캐시를 새로 만들고 최신 날씨 예보를 반영합니다. 데이터나 모델 설정을 바꾼 뒤 즉시 캐시를 새로 만들고 싶으면 다음을 실행합니다.
 
 ```bash
 cd modle

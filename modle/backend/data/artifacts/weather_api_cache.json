@@ -84,5 +84,32 @@
       "average_precipitation": 0.0,
       "source": "forecast"
     }
+  },
+  "2026-06-05:short-mid-v1": {
+    "2026-06-09": {
+      "average_temperature": 17.0,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-06-05": {
+      "average_temperature": 20.791666666666668,
+      "average_precipitation": 0.041666666666666664,
+      "source": "forecast"
+    },
+    "2026-06-06": {
+      "average_temperature": 21.083333333333332,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-06-07": {
+      "average_temperature": 20.958333333333332,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-06-08": {
+      "average_temperature": 20.125,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    }
   }
 }

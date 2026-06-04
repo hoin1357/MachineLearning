@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -31,9 +31,15 @@ WEATHER_CACHE_FILE = ARTIFACTS_DIR / "weather_api_cache.json"
 TRANSPORT_VISITORS_FILE = ARTIFACTS_DIR / "external_transport" / "seoul_grand_park_visitors_with_daegongwon_subway.csv"
 
 SEOUL_TIMEZONE = ZoneInfo("Asia/Seoul")
-TODAY = datetime.now(SEOUL_TIMEZONE).date()
 
-WEATHER_API_SERVICE_KEY = os.getenv("WEATHER_API_SERVICE_KEY", "")
+
+def current_seoul_date() -> date:
+    return datetime.now(SEOUL_TIMEZONE).date()
+
+
+TODAY = current_seoul_date()
+
+WEATHER_API_SERVICE_KEY = os.getenv("WEATHER_API_SERVICE_KEY", "662b6272fdcb5ce6acda46179c67f38edc18d32bbe617cfd8db4d58941eaf890")
 WEATHER_API_BASE_URL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0"
 WEATHER_GRID_X = 60
 WEATHER_GRID_Y = 124

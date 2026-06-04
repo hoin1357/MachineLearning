@@ -13,13 +13,13 @@ from app.config import (
     MID_TEMPERATURE_REGION_ID,
     MID_WEATHER_API_BASE_URL,
     SEOUL_TIMEZONE,
-    TODAY,
     WEATHER_API_BASE_URL,
     WEATHER_API_SERVICE_KEY,
     WEATHER_CACHE_FILE,
     WEATHER_GRID_X,
     WEATHER_GRID_Y,
     WEATHER_STRATEGY_VERSION,
+    current_seoul_date,
 )
 
 
@@ -230,7 +230,7 @@ class WeatherService:
         if not WEATHER_API_SERVICE_KEY:
             raise ValueError("WEATHER_API_SERVICE_KEY 환경변수가 설정되지 않았습니다.")
 
-        cache_key = f"{TODAY.isoformat()}:{WEATHER_STRATEGY_VERSION}"
+        cache_key = f"{current_seoul_date().isoformat()}:{WEATHER_STRATEGY_VERSION}"
         if cache_key in self.api_cache:
             return {
                 key: DailyWeatherFeature(
@@ -281,7 +281,8 @@ class WeatherService:
         )
 
     def feature_for_date(self, target_date: date) -> DailyWeatherFeature:
-        if target_date < TODAY:
+        today = current_seoul_date()
+        if target_date < today:
             row = self.weather_history.loc[self.weather_history["일자"] == pd.Timestamp(target_date)]
             if not row.empty:
                 row = row.iloc[0]
@@ -291,7 +292,7 @@ class WeatherService:
                     source="historical",
                 )
 
-        if target_date <= TODAY + timedelta(days=5):
+        if target_date <= today + timedelta(days=5):
             try:
                 forecast_block = self._fetch_forecast_block()
                 if target_date.isoformat() in forecast_block:
