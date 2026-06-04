@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="기독탄신일">
+  <rect width="64" height="64" rx="14" fill="#ecfdf5"/>
+  <path d="M32 10l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1 4-8Z" fill="#facc15"/>
+  <path d="M18 49l14-29 14 29H18Z" fill="#16a34a" stroke="#166534" stroke-width="3"/>
+  <path d="M26 39h12" stroke="#fef2f2" stroke-width="4" stroke-linecap="round"/>
+  <rect x="27" y="49" width="10" height="7" fill="#92400e"/>
+</svg>

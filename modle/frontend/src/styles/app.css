@@ -1,0 +1,460 @@
+:root {
+  font-family: "Source Sans 3", sans-serif;
+  color: #1c1917;
+  background:
+    radial-gradient(circle at top left, rgba(245, 158, 11, 0.14), transparent 24%),
+    radial-gradient(circle at top right, rgba(194, 65, 12, 0.12), transparent 28%),
+    #fafaf9;
+  --color-primary: #c2410c;
+  --color-primary-hover: #9a3412;
+  --color-accent: #f59e0b;
+  --color-surface: #f5f5f4;
+  --color-surface-raised: #e7e5e4;
+  --color-border: #d6d3d1;
+  --color-text-primary: #1c1917;
+  --color-text-secondary: #57534e;
+  --color-muted: #78716c;
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+  --color-selected: #d9f5db;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--color-text-primary);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 64px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.7fr 0.9fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 32px;
+}
+
+.hero-copy h1 {
+  margin: 0 0 12px;
+  font-family: "Noto Serif KR", serif;
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.eyebrow,
+.panel-kicker {
+  margin: 0 0 8px;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero-description {
+  max-width: 48rem;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 1.15rem;
+}
+
+.status-card,
+.calendar-card,
+.prediction-panel {
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: rgba(245, 245, 244, 0.94);
+  box-shadow: 0 18px 36px rgba(28, 25, 23, 0.08);
+}
+
+.status-card {
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+}
+
+.status-card p:last-child {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+.calendar-toolbar,
+.risk-legend-card,
+.prediction-panel {
+  padding: 24px;
+}
+
+.calendar-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.calendar-toolbar h2,
+.risk-legend-card h3,
+.prediction-panel h2 {
+  margin: 0;
+  font-family: "Noto Serif KR", serif;
+  letter-spacing: 0;
+}
+
+.calendar-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-button,
+.risk-toggle {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: 150ms ease;
+}
+
+.nav-button:hover,
+.risk-toggle:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.risk-toggle.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.risk-legend-card {
+  display: grid;
+  gap: 16px;
+  border-top: 1px solid rgba(214, 211, 209, 0.7);
+  border-bottom: 1px solid rgba(214, 211, 209, 0.7);
+  background: rgba(250, 250, 249, 0.72);
+}
+
+.risk-legend-header,
+.risk-legend-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(28, 25, 23, 0.18);
+}
+
+.calendar-grid-wrap {
+  padding: 24px;
+}
+
+.weekday-row,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.weekday-row {
+  margin-bottom: 12px;
+}
+
+.weekday-cell {
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.weekday-cell.weekend {
+  color: #c0392b;
+}
+
+.day-cell {
+  min-height: 116px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: white;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.day-cell:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 18px rgba(28, 25, 23, 0.08);
+}
+
+.day-cell.holiday .day-number {
+  color: #c0392b;
+}
+
+.day-cell.disabled {
+  background: #efebe9;
+  color: #a8a29e;
+  cursor: not-allowed;
+}
+
+.day-cell.selected {
+  background: var(--color-selected) !important;
+  border-color: #6bb879;
+  box-shadow: 0 0 0 3px rgba(107, 184, 121, 0.16);
+}
+
+.day-cell.today {
+  border-style: dashed;
+}
+
+.day-cell.empty {
+  visibility: hidden;
+}
+
+.day-number {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.day-topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 28px;
+}
+
+.holiday-icon-row {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.holiday-icon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.holiday-name {
+  display: block;
+  color: #b91c1c;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.day-risk-label {
+  align-self: flex-start;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #1c1917;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.prediction-panel {
+  margin-top: 28px;
+  display: grid;
+  gap: 20px;
+}
+
+.prediction-panel.error {
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+
+.panel-heading h2 {
+  font-size: 2rem;
+}
+
+.panel-metric {
+  display: grid;
+  gap: 4px;
+}
+
+.panel-metric span {
+  color: var(--color-text-secondary);
+}
+
+.panel-metric strong {
+  font-size: 2.1rem;
+}
+
+.panel-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #ece7e2;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.badge.primary {
+  background: rgba(194, 65, 12, 0.12);
+  color: var(--color-primary);
+}
+
+.badge.weather {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.date-comment,
+.random-comment {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+
+.random-comment {
+  font-weight: 700;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+
+.detail-grid div {
+  padding: 16px;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid rgba(214, 211, 209, 0.75);
+}
+
+.detail-grid dt {
+  margin-bottom: 8px;
+  color: var(--color-text-secondary);
+}
+
+.detail-grid dd {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.risk-window-summary {
+  display: grid;
+  gap: 10px;
+}
+
+.risk-window-summary h3 {
+  margin: 0;
+}
+
+.risk-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.risk-chip {
+  color: var(--color-text-primary);
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+@media (max-width: 960px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .day-cell {
+    min-height: 92px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(100% - 20px, 1200px);
+    padding-top: 28px;
+  }
+
+  .calendar-toolbar,
+  .panel-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .day-cell {
+    min-height: 78px;
+    padding: 10px;
+  }
+
+  .holiday-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .holiday-name {
+    font-size: 0.68rem;
+  }
+
+  .day-risk-label {
+    font-size: 0.72rem;
+  }
+}

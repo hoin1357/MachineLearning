@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="한글날">
+  <rect width="64" height="64" rx="14" fill="#eff6ff"/>
+  <path d="M18 17h28v30H18z" fill="#fff" stroke="#1d4ed8" stroke-width="3"/>
+  <path d="M25 25h14M25 25v16M39 25v16M25 41h14" stroke="#1e3a8a" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="46" cy="47" r="5" fill="#ef4444"/>
+</svg>

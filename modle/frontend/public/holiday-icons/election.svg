@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="선거일">
+  <rect width="64" height="64" rx="14" fill="#f5f3ff"/>
+  <path d="M17 30h30l-4 22H21l-4-22Z" fill="#ddd6fe" stroke="#6d28d9" stroke-width="3"/>
+  <path d="M24 20h16l5 10H19l5-10Z" fill="#fff" stroke="#6d28d9" stroke-width="3"/>
+  <path d="M27 26l4 4 8-9" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

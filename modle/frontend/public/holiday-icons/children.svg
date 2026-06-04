@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="어린이날">
+  <rect width="64" height="64" rx="14" fill="#ecfdf5"/>
+  <path d="M17 47c3-10 10-15 15-15s12 5 15 15" fill="#86efac" stroke="#15803d" stroke-width="3"/>
+  <circle cx="24" cy="25" r="7" fill="#f59e0b"/>
+  <circle cx="40" cy="25" r="7" fill="#38bdf8"/>
+  <path d="M22 46h20" stroke="#166534" stroke-width="4" stroke-linecap="round"/>
+  <path d="M17 16l5 5M47 16l-5 5" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,7 @@
+{
+  "today": "2026-05-13",
+  "known_data_end": "2025-07-31",
+  "horizon_days": 365,
+  "weather_strategy_version": "short-mid-v1",
+  "model_feature_version": "future-safe-weather-event-v2"
+}

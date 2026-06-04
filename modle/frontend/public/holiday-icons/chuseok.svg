@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="추석">
+  <rect width="64" height="64" rx="14" fill="#fffbeb"/>
+  <circle cx="43" cy="18" r="10" fill="#fde68a" stroke="#b45309" stroke-width="3"/>
+  <path d="M13 45c8-13 30-13 38 0" fill="#dcfce7" stroke="#15803d" stroke-width="3"/>
+  <path d="M20 43c2-8 8-13 12-18 4 5 10 10 12 18" fill="#facc15" stroke="#92400e" stroke-width="3"/>
+  <path d="M26 44h12" stroke="#92400e" stroke-width="3" stroke-linecap="round"/>
+</svg>

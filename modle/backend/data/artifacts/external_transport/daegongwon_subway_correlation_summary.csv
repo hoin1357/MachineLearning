@@ -1,0 +1,6 @@
+﻿window,N,pearson_visitors_vs_station_total,spearman_visitors_vs_station_total,avg_visitors,avg_station_total
+all_2015_2025-07,3762,0.8229,0.8247,5360.6,9926.0
+pre_covid_2015_2019,1723,0.8636,0.8452,6854.1,12172.0
+covid_2020_2022,1096,0.7452,0.7834,3785.0,6782.3
+post_covid_2023_2025-07,943,0.7402,0.8483,4462.7,9476.1
+visitor_top15pct_all,565,0.6697,0.5577,20094.5,21645.2

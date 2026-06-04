@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="대체공휴일">
+  <rect width="64" height="64" rx="14" fill="#fef2f2"/>
+  <path d="M18 20h28v28H18z" fill="#fff" stroke="#dc2626" stroke-width="3"/>
+  <path d="M24 16v9M40 16v9" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/>
+  <path d="M23 35h18M32 26v18" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="설날">
+  <rect width="64" height="64" rx="14" fill="#fff7ed"/>
+  <path d="M14 43c8-17 28-17 36 0" fill="#e0f2fe" stroke="#0f766e" stroke-width="3"/>
+  <path d="M20 30c4-9 20-9 24 0" fill="#fef3c7" stroke="#b45309" stroke-width="3"/>
+  <path d="M25 25h14v21H25z" fill="#ef4444"/>
+  <path d="M32 25v21" stroke="#fff7ed" stroke-width="3"/>
+  <circle cx="32" cy="18" r="6" fill="#facc15"/>
+</svg>

@@ -1,0 +1,88 @@
+{
+  "2026-04-17": {
+    "2026-04-17": {
+      "average_temperature": 15.333333333333334,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-04-18": {
+      "average_temperature": 16.583333333333332,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-04-19": {
+      "average_temperature": 18.791666666666668,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-04-20": {
+      "average_temperature": 15.375,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-04-21": {
+      "average_temperature": 9.0,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    }
+  },
+  "2026-04-22:short-mid-v1": {
+    "2026-04-27": {
+      "average_temperature": 15.0,
+      "average_precipitation": 2.5,
+      "source": "mid_forecast"
+    },
+    "2026-04-22": {
+      "average_temperature": 12.0,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-04-23": {
+      "average_temperature": 14.916666666666666,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-04-24": {
+      "average_temperature": 15.875,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-04-25": {
+      "average_temperature": 16.541666666666668,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-04-26": {
+      "average_temperature": 16.375,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    }
+  },
+  "2026-05-13:short-mid-v1": {
+    "2026-05-17": {
+      "average_temperature": 19.0,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-05-13": {
+      "average_temperature": 19.0,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-05-14": {
+      "average_temperature": 21.541666666666668,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-05-15": {
+      "average_temperature": 21.875,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    },
+    "2026-05-16": {
+      "average_temperature": 21.875,
+      "average_precipitation": 0.0,
+      "source": "forecast"
+    }
+  }
+}
